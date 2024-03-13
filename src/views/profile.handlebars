@@ -1,0 +1,32 @@
+<article>
+    <header>
+        <h1>Zona Privada</h1>
+    </header>
+    {{#if user.role}}
+    {{#if (eq user.role "premium")}}
+    <div class="imageContainer">
+        <div class="profile-photo-container">
+            <img src="{{profilePhoto}}" alt="">
+        </div>
+    </div>
+    {{else}}
+    <p>Sé premium si quieres mostrar tu foto de perfil.</p>
+    {{/if}}
+    {{/if}}
+    <p><strong>Nombre: </strong>{{user.firstName}}</p>
+    <p><strong>Apellido: </strong> {{user.lastName}}</p>
+    <p><strong>Email: </strong> {{user.email}}</p>
+    <p><strong>Edad: </strong> {{user.age}}</p>
+    <p><strong>Rol: </strong> {{user.role}}</p>
+    <h2>Archivos subidos:</h2>
+    <ul>
+        {{#each documents}}
+        <h3>{{this.uploadType}}</h3>
+        <img src="{{this.reference}}" alt="{{this.name}}" style="max-width: 200px; max-height: 200px;">
+        {{/each}}
+    </ul>
+    <a href="/api/carts/{{user.cart}}"><button class="button">Mi Carrito</button></a>
+    <footer>
+        <a href="/auth/sessions/logout" role="button" class="button">Cerrar Sesión</a>
+    </footer>
+</article>

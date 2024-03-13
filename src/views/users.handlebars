@@ -1,0 +1,100 @@
+<div>
+    <h2>Lista de usuarios</h2>
+    <div class="miniBar">
+        <style>
+            .miniBarButton {
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+
+        <div style="display: flex; align-items: center;">
+            <input type="number" id="limit" value="5"
+                style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+            <div class="buttonGroup" style="display: flex; flex: 1;">
+                <button onclick="sortBy('asc')" class="miniBarButton"
+                    style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">Ascendente</button>
+                <button onclick="sortBy('desc')" class="miniBarButton"
+                    style="flex: 1; padding: 8px; box-sizing: border-box;">Descendente</button>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="search" placeholder="Ingresar nombre"
+                style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+            <button onclick="search()" class="miniBarButton"
+                style="flex: 1; padding: 8px; box-sizing: border-box;">Buscar</button>
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="category" placeholder="Ingresar rol"
+                style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+            <button onclick="filterByRole()" class="miniBarButton"
+                style="flex: 1; padding: 8px; box-sizing: border-box;">Filtrar</button>
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="category" placeholder="Ingresar proveedor"
+                style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+            <button onclick="filterByProvider()" class="miniBarButton"
+                style="flex: 1; padding: 8px; box-sizing: border-box;">Filtrar</button>
+        </div>
+    </div>
+    <ul>
+        {{#each users}}
+        <li>
+            <p><b>Nombre:</b> {{firstName}} {{lastName}}<br />
+                <b>Email:</b> {{email}}<br />
+                <b>Rol:</b> {{role}}<br />
+                <b>Proveedor:</b> {{provider}}<br />
+                <b>Última conexión:</b> {{lastConnection}}<br />
+        </li>
+        {{/each}}
+    </ul>
+    {{#if totalPages}}
+    <div class="pagination">
+        {{#if prevLink}}
+        <a href="{{prevLink}}">Anterior</a>
+        {{/if}}
+        {{#if nextLink}}
+        <a href="{{nextLink}}">Siguiente</a>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>
+
+<script>
+    const currentUrl = "http://localhost:8080/api/users";
+    function sortBy(order) {
+        const limit = document.getElementById('limit').value;
+        const newURL = generatePaginatedLink(currentUrl, { sort: order, limit });
+        window.location.href = newURL;
+    }
+    function search() {
+        const limit = document.getElementById('limit').value;
+        const firstName = document.getElementById('search').value;
+        const newURL = generatePaginatedLink(currentUrl, { firstName, limit });
+        window.location.href = newURL;
+    }
+    function filterByRole() {
+        const limit = document.getElementById('limit').value;
+        const role = document.getElementById('role').value;
+        const newURL = generatePaginatedLink(currentUrl, { role, limit });
+        window.location.href = newURL;
+    }
+    function filterByProvider() {
+        const limit = document.getElementById('limit').value;
+        const provider = document.getElementById('provider').value;
+        const newURL = generatePaginatedLink(currentUrl, { provider, limit });
+        window.location.href = newURL;
+    }
+    const generatePaginatedLink = (baseUrl, queryParams) => {
+        const url = new URL(baseUrl);
+        Object.keys(queryParams).forEach(key => {
+            url.searchParams.append(key, queryParams[key]);
+        });
+        return url.toString();
+    };
+</script>

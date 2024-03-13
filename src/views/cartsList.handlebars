@@ -1,0 +1,10 @@
+<div>
+    <h1>Carritos disponibles</h1>
+</div>
+<div>
+    <ul>
+        {{#each carts}}
+        <li>{{this.title}} (ID: {{this.id}}) = {{this.userEmail}}</li>
+        {{/each}}
+    </ul>
+</div>

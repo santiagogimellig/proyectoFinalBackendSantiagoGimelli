@@ -1,0 +1,20 @@
+<article>
+    <form action="/auth/sessions/register" method="post" enctype="application/x-www-form-urlencoded">
+        <header>
+            <h1>Registrarse</h1>
+        </header>
+        <input type="text" name="firstName" placeholder="Nombre" required />
+        <input type="text" name="lastName" placeholder="Apellido" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="number" name="age" placeholder="Edad" required />
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <footer>
+            <input type="submit" class="buttonForm" value="Registrarse">
+        </footer>
+    </form>
+    <div>
+        <a href="/login">
+            <h5 class="buttonText">¿Ya estás registrado? Iniciar Sesión</h5>
+        </a>
+    </div>
+</article>

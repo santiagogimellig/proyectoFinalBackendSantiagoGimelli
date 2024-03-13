@@ -1,0 +1,13 @@
+<form action="/api/users/{{uid}}/documents" method="POST" enctype="multipart/form-data">
+    <label for="uploadType">Selecciona el tipo de carga:</label>
+    <select id="uploadType" name="uploadType">
+        <option name="uploadType" value="profilePhoto">Actualizar foto de perfil</option>
+        <option name="uploadType" value="id">Subir identificación</option>
+        <option name="uploadType" value="houseLocation">Subir ubicación de la casa</option>
+        <option name="uploadType" value="creditCard">Subir estado de la tarjeta de crédito</option>
+        <option name="uploadType" value="productPhoto">Subir foto del producto</option>
+    </select>
+    <label for="file">Choose File:</label>
+    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .pdf">
+    <button type="submit">Subir</button>
+</form>

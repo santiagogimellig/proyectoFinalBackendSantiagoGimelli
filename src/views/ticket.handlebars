@@ -1,0 +1,16 @@
+<h1>Ticket Details</h1>
+<p><strong>Código:</strong> {{ticket.code}}</p>
+<p><strong>Fecha de compra:</strong> {{ticket.purchase_datetime}}</p>
+<p><strong>Cantidad:</strong> ${{ticket.amount}}</p>
+<p><strong>Comprador:</strong> {{ticket.purchaser}}</p>
+
+<h2>Productos</h2>
+<ul>
+    {{#each ticket.products}}
+    <li>
+        <strong>ID del producto:</strong> {{this.productId}},
+        <strong>Cantidad:</strong> {{this.quantity}}
+    </li>
+    {{/each}}
+</ul>
+<h3>Este boleto ha sido enviado a tu cuenta de correo electrónico para que lo tengas!</h3>

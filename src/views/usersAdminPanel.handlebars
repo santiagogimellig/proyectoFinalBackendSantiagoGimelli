@@ -1,0 +1,65 @@
+<div>
+    <h2>Administrar Usuarios</h2>
+    <div>
+        <h3>Eliminar usuarios que estuvieron desconectados durante más de dos días</h3>
+        <form id="cleanUsersForm" method="POST" action="/api/users/clean?_method=DELETE">
+            <button type="submit" class="button">Eliminar usuarios desconectados</button>
+        </form>
+    </div>
+    <div class="miniBar">
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="search" placeholder="Ingresar ID"
+                style="flex: 1; padding: 8px; margin-right: 10px; box-sizing: border-box;">
+            <button onclick="searchUser()" class="miniBarButton"
+                style="flex: 1; padding: 8px; box-sizing: border-box;">Buscar</button>
+        </div>
+    </div>
+    <ul>
+        {{#each users}}
+        <li>
+            <p><b>ID:</b> {{_id}}<br />
+                <b>Nombre:</b> {{firstName}} {{lastName}}<br />
+                <b>Email:</b> {{email}}<br />
+                <b>Edad:</b> {{age}}<br />
+                <b>Rol:</b> {{role}}<br />
+                <b>ID del carrito:</b> {{cart}}<br />
+                <b>Proveedor:</b> {{provider}}<br />
+                <b>Creado:</b> {{createdAt}}<br />
+                <b>Última actualización:</b> {{updatedAt}}<br />
+                <b>Última conexión:</b> {{lastConnection}}<br />
+            <form action="/api/users/{{_id}}/changeRoleByAdmin" method="POST">
+                <button type="submit" class="button">Cambiar Rol</button>
+            </form>
+            <form id="deleteForm" method="POST" action="/api/users/{{_id}}/deleteUser?_method=DELETE">
+                <button type="submit" class="button">Eliminar Usuario</button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+    {{#if totalPages}}
+    <div class="pagination">
+        {{#if prevLink}}
+        <a href="{{prevLink}}">Anterior</a>
+        {{/if}}
+        {{#if nextLink}}
+        <a href="{{nextLink}}">Siguiente</a>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>
+
+<script>
+    const currentUrl = "http://localhost:8080/api/users/adminPanel";
+    function searchUser() {
+        const _id = document.getElementById('search').value;
+        const newURL = generatePaginatedLink(currentUrl, { _id });
+        window.location.href = newURL;
+    }
+    const generatePaginatedLink = (baseUrl, queryParams) => {
+        const url = new URL(baseUrl);
+        Object.keys(queryParams).forEach(key => {
+            url.searchParams.append(key, queryParams[key]);
+        });
+        return url.toString();
+    };
+</script>

@@ -1,0 +1,27 @@
+<article>
+    <form action="/auth/sessions/login" method="post" enctype="application/x-www-form-urlencoded">
+        <header>
+            <h1>Iniciar Sesión</h1>
+        </header>
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <footer>
+            <input type="submit" class="buttonForm" value="Iniciar sesión">
+        </footer>
+    </form>
+    <div>
+        <a href="/changePassword">
+            <h5 class="buttonText">¿Olvidaste tu contraseña?</h5>
+        </a>
+    </div>
+    <div>
+        <a href="/register">
+            <h5 class="buttonText">Regístrate</h5>
+        </a>
+    </div>
+    <div>
+        <a href="/auth/sessions/github">
+            <h5 class="buttonText">Iniciar sesión con GitHub</h5>
+        </a>
+    </div>
+</article>

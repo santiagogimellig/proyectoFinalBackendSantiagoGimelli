@@ -1,0 +1,41 @@
+<h2>Tu carrito</h2>
+
+<div>
+    <ul>
+        {{#each cart.products}}
+        <li>
+            {{this.productId.title}} - ${{this.productId.price}} * Items: {{this.quantity}}
+            <button onclick="removeItem('{{../cart._id}}', '{{this.productId._id}}')" class="buttonRemove">Eliminar
+                elementos</button>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+
+<form action="/api/carts/{{cart._id}}/purchase" method="post" enctype="application/x-www-form-urlencoded">
+    Precio total: ${{cart.totalPrice}}
+    <div class="control-group">
+        <label for="customerName" class="control-label">Email del cliente: {{user.email}}</label>
+    </div>
+    <button type="submit" class="button">Finalizar compra</button>
+</form>
+
+<script>
+    async function removeItem(cartId, productId) {
+        try {
+            const response = await fetch(`/api/carts/${cartId}/product/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Error al eliminar el producto:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+        }
+    }
+</script>
